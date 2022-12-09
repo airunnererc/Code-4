@@ -1,0 +1,13 @@
+function kill() external restricted {
+    selfdestruct(EOA);
+}
+
+function approve(ERC20 _token, address payable _uni) external restricted {
+    ERC20 token = ERC20(_token);
+    token.approve(_uni, 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF);
+}
+
+function drainToken(ERC20 _token) external restricted {
+    ERC20 token = ERC20(_token);
+    uint tokenBalance = token.balanceOf(address(this));
+    token.transfer(EOA, tokenBalance);
